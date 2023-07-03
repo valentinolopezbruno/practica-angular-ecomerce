@@ -1,0 +1,24 @@
+<!-- LA MAYORIA DE ngClass SE UTILIZAN PARA VALIDAR COMO ES EL ANCHO ELEGIDO POR EL USUARIO A LA HORA DE TOCAR LA FORMA DE PRESENTACION DE LOS PRODUCTOS -->
+<mat-card *ngIf="producto" [ngClass]="{'text-center' : !anchoMaximo}">
+    <div [ngClass]="{flex : anchoMaximo}">
+        <img class="mb-1 mx-auto h-[200px]"
+        [src]="producto.image"
+        [ngClass]="{'h-200px' : !anchoMaximo, 'h-[360px]': anchoMaximo}"
+        />
+        <div class="w-full"
+        [ngClass]="{'px-8 flex flex-col justify-between': anchoMaximo}">
+            <div>
+                <h5>{{producto.category}}</h5>
+                <p class="truncate hover:whitespace-normal">{{producto.title}}</p>
+               <!--  SI EL ANCHO ES EL ANCHO ES EL MAXIMO, MUESTRO LA Descripcion DEL PRODUCTO -->
+                <p *ngIf="anchoMaximo">{{producto.title}}</p>
+                <div class="flex justify-between">
+                    <button (click)="(agregarAlCarrito())">
+                        <mat-icon class="text-gray-500 text-green-500" >shopping_cart</mat-icon>
+                    </button>
+                    <span class="font-bold">{{producto.price | currency}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-card>

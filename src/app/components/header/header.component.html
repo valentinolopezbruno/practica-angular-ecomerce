@@ -1,0 +1,48 @@
+<mat-toolbar class="max-w7xl mx-auto border-x justify-between">
+    <a routerLink="inicio">Ecomerce Angular</a>
+    
+    <button mat-icon-button [matMenuTriggerFor]="menu"> <!-- CUANDO APRIETO EL CARRITO SE ABRE -->
+        <!-- AHORA LE ESTOY PASANDO EL NUMERO QUE ME DEBE MOSTRAR EL CARRITO DE EL TOTAL DE LOS PRODUCTOS Y EL COLOR-->
+        <!-- SI HAY PRODUCTOS MUESTRO EL CARRITO CON LA CANTIDAD (matBadge) Y SI NO HAY NO MUESTRO LA CANTIDAD (matBadgeHidden) -->
+        <mat-icon
+            [matBadge]="cantidadProductosCarrito" 
+            [matBadgeHidden]="!cantidadProductosCarrito" 
+            matBadgeColor="warn"
+    >shopping_cart</mat-icon> <!-- ESTE ES EL ICONO CARRITO TRIDO DE ANGULAR MATERIAL -->
+    </button>
+    <mat-menu #menu="matMenu">
+        <!-- CUANDO SE HACE CLICK EN EL CARRITO -->
+        <div class="p-3 dividite-y divide-solid">
+            <div class="pb-3 flex justify-between">
+                <span class="mr-16">{{cantidadProductosCarrito}} Productos</span>
+            </div>
+            <div *ngIf="carrito.productos.length"  class="py-3">
+                <div 
+                *ngFor="let producto of carrito.productos"
+                class="flex justify-between font-ligth mb-2">
+                    {{producto.nombre}} x {{producto.cantidad}}
+                    <span class="font-bold text-center fs-w">{{producto.precio| currency }}</span>
+                </div>
+            </div>
+            <div class="flex justify-between pt-3 font-ligth">
+                Total:
+                <span class="font-bold">{{ getTotal(carrito.productos) | currency }}</span>
+            </div>
+            <!-- COMIENZO A CREAR EL BOTON PARA ELIMINAR PRODUCTOS -->
+            <div class="pt-3 flex justify-between items-center text-center"> 
+                <!-- <button 
+                (click)="limpiarCarrito()"
+                class="bg-rose-300 text-white rounded-full w-9 h-9">
+                    <mat-icon>remove_shopping_cart</mat-icon>
+                </button> -->
+                
+                <button mat-button
+                routerLink="carrito"
+                routerLink="/cart"
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" color="primary">
+                    <!-- <mat-icon routerLink="/cart">shopping_cart</mat-icon> -->
+                Finalizar Compra </button>
+            </div>
+        </div>
+    </mat-menu>
+</mat-toolbar>

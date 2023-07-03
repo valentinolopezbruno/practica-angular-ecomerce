@@ -1,0 +1,71 @@
+<mat-card class="mb-4 pt-3 items-center" >
+    <div >
+        <button (click)="cambioVistaProductos(1)">
+            <mat-icon>view_list</mat-icon>
+        </button>
+        <button (click)="cambioVistaProductos(3)">
+            <mat-icon>view_module</mat-icon>
+        </button>
+        <button (click)="cambioVistaProductos(4)">
+            <mat-icon>view_comfy</mat-icon>
+        </button>
+     </div>
+</mat-card>
+
+
+<mat-form-field class="pt-4" >
+    <mat-icon matPrefix>search</mat-icon>
+    <input [(ngModel)]="filtrarProductoSearchBar" (input)="seleccionarFiltrarProductoSearchBar()" name="filtrarProductoSearchBar" type="text" matInput placeholder="Buscar Producto...">
+    <button mat-button matSuffix (click)="borrarDatosBusqueda()">
+      <mat-icon>clear</mat-icon>
+    </button>
+</mat-form-field>
+
+<mat-card class="mb-4 pt-3" >
+    <div class="flex jusify-between">
+        <div>
+           <!--  CREO EL BOTON PARA FILTRAR PRODUCTOS -->
+            <button mat-button [mat-menu-trigger-for]="filtrarProductos" >
+                Buscar por {{filtrarPor}}
+            </button>
+            <mat-menu #filtrarProductos='matMenu' >
+               <!--  CREO LOS BOTONES QUE ACTUALIZAN LA VARIABLE DE FILTRADO DE PRODUCTOS -->
+                <button mat-menu-item (click)="seleccionaFiltrarPor('asc')">mayor precio</button>
+                <button mat-menu-item (click)="seleccionaFiltrarPor('desc')">menor precio</button>
+            </mat-menu>
+        </div>
+    </div>
+</mat-card>
+
+<mat-card class="mb-4 pt-3" >
+    <div  >
+        <div >
+            <button mat-button [mat-menu-trigger-for]="menu" >
+                Mostrar Por {{cantidadProductos}}
+            </button>
+            <mat-icon>expand_more</mat-icon>
+            <mat-menu #menu="matMenu">
+                <!--  CREO LOS BOTONES QUE ACTUALIZAN LA VARIABLE DE FILTRADO DE PRODUCTOS -->
+                <button mat-menu-item (click)="seleccionaCantidadProductos(12)">12</button>
+                <button mat-menu-item (click)="seleccionaCantidadProductos(31)">31</button>
+            </mat-menu>
+        </div>
+    </div>
+</mat-card>
+
+
+
+
+
+<mat-expansion-panel *ngIf="categorias" >
+    <mat-expansion-panel-header >
+        <mat-panel-title  > CATEGORIA </mat-panel-title>
+    </mat-expansion-panel-header>
+    <!--  [MULTPLE] = FALSE PARA PODER SELECCIONAR SOLO UNA CATEGORIA -->
+    <mat-selection-list [multiple]="false" >
+        <mat-list-option *ngFor="let categoria of categorias" [value]="categoria">
+            <button class="text-center pt-4" (click)="cambioCategoria(categoria)">{{categoria}}</button>
+        </mat-list-option>
+    </mat-selection-list>
+</mat-expansion-panel>
+
